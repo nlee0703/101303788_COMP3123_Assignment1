@@ -3,6 +3,13 @@ const connectDB = require('./src/config/db');
 const app = require('./src/app');
 const logger = require('./src/utils/logger');
 
+// On Vercel the platform runs the exported app itself, so no port is opened here
+if (process.env.VERCEL) {
+    module.exports = app;
+} else {
+    start();
+}
+
 async function start() {
     try {
         await connectDB();
@@ -15,5 +22,3 @@ async function start() {
         process.exit(1);
     }
 }
-
-start();

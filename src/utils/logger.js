@@ -1,11 +1,20 @@
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 
 // Simple file logger: every entry is one JSON line in logs/app.log
 // (and is also printed to the console).
-const LOG_DIR = path.join(__dirname, '..', '..', 'logs');
+// On Vercel the project folder is read-only, so logs go to the temporary folder
+// there instead; they also appear in the Vercel dashboard under Logs.
+const LOG_DIR = process.env.VERCEL
+    ? path.join(os.tmpdir(), 'logs')
+    : path.join(__dirname, '..', '..', 'logs');
 const LOG_FILE = path.join(LOG_DIR, 'app.log');
-fs.mkdirSync(LOG_DIR, { recursive: true });
+try {
+    fs.mkdirSync(LOG_DIR, { recursive: true });
+} catch {
+    // If the folder cannot be created, entries are still printed to the console
+}
 
 // Keys whose values must never be written to a log
 const SENSITIVE_KEYS = ['password', 'token', 'jwt', 'jwt_token', 'authorization', 'secret', 'mongodb_uri'];

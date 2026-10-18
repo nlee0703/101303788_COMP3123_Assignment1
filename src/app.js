@@ -2,6 +2,8 @@ const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 
+const connectDB = require('./config/db');
+const logger = require('./utils/logger');
 const userRoutes = require('./routes/userRoutes');
 const employeeRoutes = require('./routes/employeeRoutes');
 const requestLogger = require('./middleware/requestLogger');
@@ -9,6 +11,10 @@ const { apiLimiter } = require('./middleware/rateLimiters');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
 
 const app = express();
+
+// On Vercel, requests arrive through Vercel's proxy. Trusting it lets req.ip be the
+// real client IP, so rate limits apply per client instead of to everyone at once.
+if (process.env.VERCEL) app.set('trust proxy', 1);
 
 // Security headers (Content-Security-Policy, X-Frame-Options, HSTS, nosniff, etc.)
 app.use(helmet());
@@ -19,6 +25,18 @@ app.disable('x-powered-by');
 app.use(express.json({ limit: '10kb' }));
 
 app.use(requestLogger);
+
+// Make sure the database is connected before handling the request.
+// If it cannot connect, the request continues: /health reports the database as
+// disconnected and other routes fail with a 500 through the error handler.
+app.use(async (req, res, next) => {
+    try {
+        await connectDB();
+    } catch (err) {
+        logger.error('Database connection failed', { error: err.message });
+    }
+    next();
+});
 
 // Health check: is the server up, and is the database connected?
 app.get('/health', (req, res) => {
