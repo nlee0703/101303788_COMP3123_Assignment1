@@ -1,0 +1,21 @@
+{
+  "name": "101303788_comp3123_assignment1",
+  "version": "1.0.0",
+  "description": "COMP 3123 Assignment 1 - secure RESTful backend for users and employees",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --env-file=.env server.js",
+    "dev": "node --watch --env-file=.env server.js"
+  },
+  "author": "Nicholas Lee (101303788)",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.1",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.1"
+  }
+}
