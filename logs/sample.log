@@ -1,0 +1,22 @@
+{"timestamp":"2026-10-18T01:54:10.274Z","level":"info","message":"Connected to MongoDB","database":"comp3123_assignment1"}
+{"timestamp":"2026-10-18T01:54:10.277Z","level":"info","message":"Server started","port":3000,"url":"http://localhost:3000"}
+{"timestamp":"2026-10-18T01:54:10.487Z","level":"info","message":"Request","method":"GET","path":"/health","status":200,"duration_ms":3}
+{"timestamp":"2026-10-18T01:54:19.469Z","level":"info","message":"Request","method":"GET","path":"/health","status":200,"duration_ms":1}
+{"timestamp":"2026-10-18T01:54:19.634Z","level":"info","message":"User signed up","user_id":"6ad426cb31cf113fce43c1a6","username":"alice_459443"}
+{"timestamp":"2026-10-18T01:54:19.635Z","level":"info","message":"Request","method":"POST","path":"/api/v1/user/signup","status":201,"duration_ms":125}
+{"timestamp":"2026-10-18T01:54:19.755Z","level":"info","message":"User signed up","user_id":"6ad426cb31cf113fce43c1a9","username":"bob_459443"}
+{"timestamp":"2026-10-18T01:54:19.756Z","level":"info","message":"Request","method":"POST","path":"/api/v1/user/signup","status":201,"duration_ms":99}
+{"timestamp":"2026-10-18T01:54:19.798Z","level":"warn","message":"Signup rejected: duplicate","field":"username"}
+{"timestamp":"2026-10-18T01:54:19.859Z","level":"warn","message":"Validation failed","method":"POST","path":"/api/v1/user/signup","errors":[{"field":"email","message":"email must be a valid email address"}]}
+{"timestamp":"2026-10-18T01:54:19.877Z","level":"warn","message":"Validation failed","method":"POST","path":"/api/v1/user/signup","errors":[{"field":"password","message":"password must be 8 to 64 characters"},{"field":"password","message":"password must contain an uppercase letter"},{"field":"password","message":"password must contain a number"}]}
+{"timestamp":"2026-10-18T01:54:19.984Z","level":"info","message":"Login successful","user_id":"6ad426cb31cf113fce43c1a6","username":"alice_459443"}
+{"timestamp":"2026-10-18T01:54:20.164Z","level":"warn","message":"Login failed","login_with":"username","username":"alice_459443"}
+{"timestamp":"2026-10-18T01:54:20.244Z","level":"info","message":"Employee created","employee_id":"6ad426cc31cf113fce43c1b1","user_id":"6ad426cb31cf113fce43c1a6"}
+{"timestamp":"2026-10-18T01:54:20.462Z","level":"warn","message":"Auth failed: missing token","method":"POST","path":"/api/v1/emp/employees","ip":"::1"}
+{"timestamp":"2026-10-18T01:54:20.478Z","level":"warn","message":"Auth failed: invalid token","method":"POST","path":"/api/v1/emp/employees","ip":"::1"}
+{"timestamp":"2026-10-18T01:54:20.811Z","level":"info","message":"Employee updated","employee_id":"6ad426cc31cf113fce43c1b1","user_id":"6ad426cb31cf113fce43c1a6","fields":["position","salary"]}
+{"timestamp":"2026-10-18T01:54:21.058Z","level":"warn","message":"Authorization failed: employee belongs to another user","action":"read","employee_id":"6ad426cc31cf113fce43c1b1","user_id":"6ad426cb31cf113fce43c1a9"}
+{"timestamp":"2026-10-18T01:54:21.137Z","level":"warn","message":"Authorization failed: employee belongs to another user","action":"update","employee_id":"6ad426cc31cf113fce43c1b1","user_id":"6ad426cb31cf113fce43c1a9"}
+{"timestamp":"2026-10-18T01:54:21.617Z","level":"info","message":"Employee deleted","employee_id":"6ad426cc31cf113fce43c1b1","user_id":"6ad426cb31cf113fce43c1a6"}
+{"timestamp":"2026-10-18T01:54:31.233Z","level":"warn","message":"Rate limit exceeded","method":"POST","path":"/api/v1/user/login","ip":"::1"}
+{"timestamp":"2026-10-18T01:54:31.418Z","level":"warn","message":"Auth failed: expired token","method":"GET","path":"/api/v1/emp/employees","ip":"::1"}
