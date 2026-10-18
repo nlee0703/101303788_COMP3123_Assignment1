@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 
+const config = require('./config/env');
 const connectDB = require('./config/db');
 const logger = require('./utils/logger');
 const userRoutes = require('./routes/userRoutes');
@@ -25,6 +26,16 @@ app.disable('x-powered-by');
 app.use(express.json({ limit: '10kb' }));
 
 app.use(requestLogger);
+
+// Server not configured (only possible on Vercel): answer every request with a clear error.
+// Only the variable names are shown, never any values.
+app.use((req, res, next) => {
+    if (config.missing.length === 0) return next();
+    res.status(500).json({
+        status: false,
+        message: `Server is not configured. Missing environment variables: ${config.missing.join(', ')}`
+    });
+});
 
 // Make sure the database is connected before handling the request.
 // If it cannot connect, the request continues: /health reports the database as
