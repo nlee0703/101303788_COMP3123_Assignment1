@@ -65,6 +65,26 @@ A secure RESTful backend built with Node.js, Express and MongoDB. Users sign up 
    Use `npm run dev` to restart automatically when files change. The server runs at `http://localhost:3000`.
 5. **Test the API.** Import `postman/101303788_COMP3123_Assignment1.postman_collection.json` into Postman and run the folders in order (or use *Run collection*).
 
+## Deployment (Vercel)
+
+**Deployed URL:** _added after deployment_
+
+Vercel detects the Express app from `server.js`, so no `vercel.json` is needed. When the `VERCEL` environment variable is set (Vercel sets it automatically):
+
+- `server.js` exports the app instead of calling `app.listen()`, and Vercel runs it as a serverless function.
+- The MongoDB connection is opened on the first request and reused by later requests (`src/config/db.js`).
+- Logs are written to the temporary folder (the project folder is read-only on Vercel) and also appear in the Vercel dashboard under **Logs**.
+- `trust proxy` is enabled so rate limits use each client's real IP address.
+
+To deploy your own copy:
+
+1. Import the GitHub repository at [vercel.com/new](https://vercel.com/new). No build settings are needed.
+2. Under **Environment Variables**, add `MONGODB_URI` and `JWT_SECRET` (and optionally `JWT_EXPIRES_IN`). `PORT` is not needed on Vercel.
+3. In MongoDB Atlas, under **Network Access**, allow `0.0.0.0/0`, because Vercel does not use fixed IP addresses.
+4. Deploy, then open `https://<your-project>.vercel.app/health` to check that the database is connected.
+
+Rate limit counters are kept in memory, so on Vercel each running instance counts separately and counters reset when an instance restarts.
+
 ## Configuration
 
 | Variable | Required | Description |
