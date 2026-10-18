@@ -2,6 +2,8 @@
 
 **Student:** Nicholas Lee (101303788)
 
+**Deployed API:** https://101303788-comp-3123-assignment1.vercel.app ([health check](https://101303788-comp-3123-assignment1.vercel.app/health))
+
 A secure RESTful backend built with Node.js, Express and MongoDB. Users sign up and log in to receive a JWT, then manage **their own** employees. Every employee belongs to the user who created it, and no user can see, change or delete another user's employees.
 
 ## Technologies
@@ -67,7 +69,9 @@ A secure RESTful backend built with Node.js, Express and MongoDB. Users sign up 
 
 ## Deployment (Vercel)
 
-**Deployed URL:** _added after deployment_
+**Deployed URL:** https://101303788-comp-3123-assignment1.vercel.app
+
+To run the Postman collection against the deployed API, change the collection variable `baseUrl` to this URL.
 
 Vercel detects the Express app from `server.js`, so no `vercel.json` is needed. When the `VERCEL` environment variable is set (Vercel sets it automatically):
 
